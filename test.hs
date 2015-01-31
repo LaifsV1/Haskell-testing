@@ -147,6 +147,20 @@ fiblaux :: (Integer, Integer, Integer) -> [Integer]
 fiblaux (0,a,b) = [a]
 fiblaux (n,a,b) = a:fiblaux (n-1,b,a+b)
 
+-- Infinite List Fib
+fibl2 :: [Integer]
+fibl2 = fiblaux2 (1,1)
+
+fiblaux2 :: (Integer, Integer) -> [Integer]
+fiblaux2 (a,b) = a:fiblaux2 (b,a+b)
+
+-- Other approaches (from Rosetta Code)
+fibl' = 0 : 1 : zipWith (+) fibl' (tail fibl')
+
+fibl'' = 0 : 1 : next fibl'' where next (a: t@(b:_)) = (a+b) : next t
+
+fibl''' = 0 : scanl (+) 1 fibl'''
+
 -- Stern-Brocot Sequence list builder
 -- NOTE: Not sure about its complexity, it has linear iterations, but appending could be inefficient.
 -- Maybe we have, once again, some lazy eval magic going on there, which makes append efficient.
